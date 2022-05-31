@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../js/funcoes.js"></script>
+  <link rel="stylesheet" href="style/style.css" />
+  <link rel="stylesheet" href="style/style1.css" />
+  <link rel="icon" href="imgs/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <!-- link do chartJS -->
+  <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+
+  <!-- link font Awesome -->
+  <script src="https://kit.fontawesome.com/0de1e0c120.js" crossorigin="anonymous"></script>
+
+  <title>DashBoard | Cacau Control</title>
+</head>
+
+<body onload="validarSessao(),atualizacaoPeriodica()">
+  <!-- side bar -->
+  <div class="sideBar">
+    <div class="divUser">
+      <img src="imgs/logo.png" alt="" />
+      <h3 id="b_usuario">usuário</h3>
+    </div>
+    <div class="divItems">
+      <div class="divItemSide sideBActive">
+        <i class="fa fa-solid fa-cloud-sun"></i>
+        <a href="">Gráficos</a>
+      </div>
+      <!-- <div class="divItemSide">
+      <i class="fa fa-regular fa-money-bill"></i>
+        <a href="rendimentos.html">Rendimentos</a>  
+      </div> -->
+    </div>
+    <div class="configs">
+      <div class="divitemsConfigs">
+        <div class="divItemConf">
+          <i class="fa fa-solid fa-door-open" onclick="limparSessao()"></i>
+        </div>
+        <!-- <div class="divItemConf">
+          <i class="fa fa-solid fa-gear"></i> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="contentAll">
+    <div class="divnavDash">
+      <div class="divInfoIndex">
+        <img src="./imgs/metricas.png" alt="" />
+      </div>
+      <div class="divNavtime">
+        <div class="divHora"></div>
+        <div class="divData"><b>02/05/22</b></div>
+        <div class="divUser">
+          <img src="imgs/logo.png" alt="" style="width: 50px"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="contentDashAll">
+      <div class="divLeftDash">
+        <div class="divSensors">
+        </div>
+
+        <div class="divControllers">
+          <div class="painelController">
+            <h2>Temperatura</h2>
+            <div class="divPainelItem temp">
+              <i id="iconTemp" class="fa fa-solid fa-temperature-low"></i>
+              <h1 id="valorTemp">
+                <!-- 30<span>℃</span> -->
+              </h1>
+              <!-- <i class="fa fa-solid fa-arrow-up"></i> -->
+            </div>
+          </div>
+          <div class="painelController">
+            <h2>Umidade</h2>
+            <div class="divPainelItem umi">
+              <i id="iconUmi" class="fa fa-solid fa-water"></i>
+              <h1 id="valorUmi">
+                <!-- 60<span>%</span> -->
+              </h1>
+              <!-- <i class="fa fa-solid fa-arrow-down"></i> -->
+            </div>
+          </div>
+        </div>
+        <div class="divGraficos">
+          <div class="divItemGrafico">
+            <canvas id="myChartTemp" style="width: 90%; max-width: 1000px"></canvas>
+          </div>
+          <div class="divItemGrafico">
+            <canvas id="myChartUmidade" style="width: 90%; max-width: 2000px"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="divRightDash">
+        <div class="divlabelAlarms">
+          <h4>Alarmes</h4>
+        </div>
+        <div class="divCardAlarms">
+
+
+          <!-- temperatura -->
+          <!-- sensor 1 -->
+          <div id="card_1" onclick="botao1()" class="itemCardAlarm critico">
+            <h2>Sens.1</h2>
+            <i class="fa fa-solid fa-temperature-low"></i>
+
+            <div id="card_1text" class="divInfoAlarm critico">Crítico</div>
+          </div>
+          <!-- sensor 2 -->
+          <div id="card_2" onclick="botao2()" class="itemCardAlarm normal">
+            <h2>Sens.2</h2>
+            <i class="fa fa-solid fa-temperature-low"></i>
+            <div id="card_2text" class="divInfoAlarm normal">Normal</div>
+          </div>
+          <!-- sensor3 -->
+          <div id="card_5" onclick="botao5()" class="itemCardAlarm normal">
+            <h2>Sens.3</h2>
+            <i class="fa fa-solid fa-temperature-low"></i>
+            <div id="card_5text" class="divInfoAlarm normal">Normal</div>
+          </div>
+
+          <!-- Umidade -->
+          <!-- sensor 1 -->
+          <div id="card_3" onclick="botao3()" class="itemCardAlarm alerta">
+            <h2>Sens.1</h2>
+            <i class="fa fa-solid fa-water"></i>
+            <div id="card_3text" class="divInfoAlarm alerta">Alerta</div>
+          </div>
+
+          <!-- sensor2 -->
+          <div id="card_4" onclick="botao4()" class="itemCardAlarm alerta">
+            <h2>Sens.2</h2>
+            <i class="fa fa-solid fa-water"></i>
+            <div id="card_4text" class="divInfoAlarm alerta">Alerta</div>
+          </div>
+          <!-- sensor3 -->
+          <div id="card_6" onclick="botao6()" class="itemCardAlarm normal">
+            <h2>Sens.3</h2>
+            <i class="fa fa-solid fa-water"></i>
+            <div id="card_6text" class="divInfoAlarm normal">Normal</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<script>
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  let proximaAtualizacao;
+  let proximaAtualizacao2;
+
+
+  var idSensor=0
+ 
+  // obterDadosTemperaturaSens1(1);
+  // obterDadosTemperaturaSens2(2)
+
+  //as funções com a nomenclatura botaoN()
+  // tem a função de trocar os gráficos de acordo com o valor do card
+  // e obter os ultimos dados dos gráficos para montar os respectivos gráficos
+  function botao1() {
+    idSensor = 1
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+
+  }
+
+  function botao2() {
+    idSensor = 2
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+  }
+
+  function botao3() {
+    idSensor = 1
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+  }
+
+  function botao4() {
+    idSensor = 2
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+  }
+
+  function botao5() {
+    idSensor = 3
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+  }
+
+  function botao6() {
+    idSensor = 3
+    window.onload = obterDadosGrafico(idSensor);
+    window.onload = obterDadosGrafico2(idSensor);
+  }
+
+  // essa função está recarregando os gráficos de 2 em 2 
+  // segundos
+  function atualizacaoPeriodica() {
+    // as funções com parâmetros fixos tem a função de buscar os dados
+    // seguidamente para alimentar a troca das classes dos cards, separadamente
+    obterDadosTemperaturaSens1(1);
+    obterDadosTemperaturaSens2(2);
+    obterDadosTemperaturaSens3(3);
+
+    obterDadosUmidadeSens1(1);
+    obterDadosUmidadeSens2(2);
+    obterDadosUmidadeSens3(3);
+
+    // busca os dados de acordo com o card que o usuário selecionou
+    obterDadosTemperatura(idSensor)
+    obterDadosUmidade(idSensor)
+
+    
+    
+
+    // obterDadosUmidade(idSensor)
+    setTimeout(atualizacaoPeriodica, 2000);
+  }
+
+
+
+  function obterDadosTemperaturaSens1(idSensor1) {
+    fetch(`/medidas/tempo-realTemperatura/${idSensor1 = 1 }`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              temperaturaSens1: resposta[0].temperatura,
+            }
+
+            alertarSens1(resposta[0].temperatura, idSensor1);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarSens1(temperaturaSens1, idSensor1) {
+
+    var limitesTemperatura = {
+      muito_quente: 29,
+      quente: 27,
+      // ideal: 24/26,
+      frio: 23,
+      muito_frio: 21
+    };
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (temperaturaSens1 >= limitesTemperatura.muito_quente) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1")
+    }
+    else if (temperaturaSens1 < limitesTemperatura.muito_quente && temperaturaSens1 >= limitesTemperatura.quente) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (temperaturaSens1 < limitesTemperatura.quente && temperaturaSens1 > limitesTemperatura.frio) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (temperaturaSens1 <= limitesTemperatura.frio && temperaturaSens1 > limitesTemperatura.muito_frio) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (temperaturaSens1 < limitesTemperatura.muito_frio) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+    
+      card_1text.innerHTML = texto1
+      
+      itemCardAlarm = card_1
+      divInfoAlarm = card_1text
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+  }
+
+
+  function obterDadosTemperaturaSens2(idSensor2) {
+    fetch(`/medidas/tempo-realTemperatura/${idSensor2 = 2 }`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              temperaturaSens2: resposta[0].temperatura,
+            }
+
+            alertarSens2(resposta[0].temperatura, idSensor2);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarSens2(temperaturaSens2, idSensor2) {
+    idSensor2=2
+    var limitesTemperatura = {
+      muito_quente: 29,
+      quente: 27,
+      // ideal: 24/26,
+      frio: 23,
+      muito_frio: 21
+    };
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (temperaturaSens2 >= limitesTemperatura.muito_quente) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1")
+    }
+    else if (temperaturaSens2 < limitesTemperatura.muito_quente && temperaturaSens2 >= limitesTemperatura.quente) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (temperaturaSens2 < limitesTemperatura.quente && temperaturaSens2 > limitesTemperatura.frio) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (temperaturaSens2 <= limitesTemperatura.frio && temperaturaSens2 > limitesTemperatura.muito_frio) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (temperaturaSens2 < limitesTemperatura.muito_frio) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+
+
+      // temp_aquario_2.innerHTML = temperatura + "°C";
+      card_2text.innerHTML = texto2
+      itemCardAlarm = card_2
+      divInfoAlarm = card_2text
+    
+
+    // valorTemp.innerHTML = temperatura + "C°";
+    // console.log("minha temp atual" + temperatura)
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+  }
+
+
+  function obterDadosTemperaturaSens3(idSensor3) {
+    fetch(`/medidas/tempo-realTemperatura/${idSensor3 = 3 }`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              temperaturaSens3: resposta[0].temperatura,
+            }
+
+            alertarSens3(resposta[0].temperatura, idSensor3);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarSens3(temperaturaSens3, idSensor3) {
+    idSensor3=3
+    var limitesTemperatura = {
+      muito_quente: 29,
+      quente: 27,
+      // ideal: 24/26,
+      frio: 23,
+      muito_frio: 21
+    };
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (temperaturaSens3 >= limitesTemperatura.muito_quente) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1")
+    }
+    else if (temperaturaSens3 < limitesTemperatura.muito_quente && temperaturaSens3 >= limitesTemperatura.quente) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (temperaturaSens3 < limitesTemperatura.quente && temperaturaSens3 > limitesTemperatura.frio) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (temperaturaSens3 <= limitesTemperatura.frio && temperaturaSens3 > limitesTemperatura.muito_frio) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (temperaturaSens3 < limitesTemperatura.muito_frio) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+
+
+      card_5text.innerHTML = texto2
+      itemCardAlarm = card_5
+      divInfoAlarm = card_5text
+  
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+  }
+
+
+  function obterDadosTemperatura(idSensor) {
+    fetch(`/medidas/tempo-realTemperatura/${idSensor}`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              temperatura: resposta[0].temperatura,
+            }
+
+            alertar(resposta[0].temperatura, idSensor);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertar(temperatura, idSensor) {
+  
+      idSensor3=3
+    var limitesTemperatura = {
+      muito_quente: 29,
+      quente: 27,
+      // ideal: 24/26,
+      frio: 23,
+      muito_frio: 21
+    };
+    
+    if (temperatura >= limitesTemperatura.muito_quente) {
+      valorTemp.style.color="#F47780"
+      iconTemp.style.color="#F47780"
+      console.log("caiu no 1")
+    }
+    else if (temperatura < limitesTemperatura.muito_quente && temperatura >= limitesTemperatura.quente) {
+      valorTemp.style.color="#DBBA01"
+      iconTemp.style.color="#DBBA01"
+      console.log("caiu no 2")
+    }
+    else if (temperatura < limitesTemperatura.quente && temperatura > limitesTemperatura.frio) {
+      valorTemp.style.color="#2DB5B2"
+      iconTemp.style.color="#2DB5B2"
+      console.log("caiu no 3")
+    }
+    else if (temperatura <= limitesTemperatura.frio && temperatura > limitesTemperatura.muito_frio) {
+      valorTemp.style.color="#DBBA01"
+      iconTemp.style.color="#DBBA01"
+      console.log("caiu no 4")
+    }
+    else if (temperatura < limitesTemperatura.muito_frio) {
+      valorTemp.style.color="#F47780"
+      iconTemp.style.color="#F47780"
+      console.log("caiu no 5")
+    }
+
+
+    valorTemp.innerHTML = temperatura + "C°";
+    console.log("minha temp atual" + temperatura)
+  }
+
+
+
+  // funções referentes a umidade
+
+
+
+  function obterDadosUmidadeSens1(idSensor1) {
+    fetch(`/medidas/tempo-realUmidade/${idSensor1 = 1}`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              umidadeSens1: resposta[0].umidade,
+            }
+
+            alertarUmiSens1(resposta[0].umidade, idSensor1);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarUmiSens1(umidadeSens1, idSensor1) {
+
+    var limitesUmidade = {
+      muito_umido: 84,
+      acima_umido: 81,
+      // ideal: 24/26,
+      abaixo_umido: 73,
+      muitoAbaixo_umido: 70
+    };
+
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (umidadeSens1 >= limitesUmidade.muito_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1")
+    }
+    else if (umidadeSens1 < limitesUmidade.muito_umido && umidadeSens1 >= limitesUmidade.acima_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (umidadeSens1 < limitesUmidade.acima_umido && umidadeSens1 > limitesUmidade.abaixo_umido) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (umidadeSens1 <= limitesUmidade.abaixo_umido && umidadeSens1 > limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (umidadeSens1 <= limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+    
+      card_3text.innerHTML = texto1
+      
+      itemCardAlarm = card_3
+      divInfoAlarm = card_3text
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+
+    
+
+    // alterando
+    // card.className = classe_temperatura;
+
+  }
+
+
+  function obterDadosUmidadeSens2(idSensor2) {
+    fetch(`/medidas/tempo-realUmidade/${idSensor2 = 2}`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              umidadeSens2: resposta[0].umidade,
+            }
+
+            alertarUmiSens2(resposta[0].umidade, idSensor2);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarUmiSens2(umidadeSens2, idSensor2) {
+
+    var limitesUmidade = {
+      muito_umido: 84,
+      acima_umido: 81,
+      // ideal: 24/26,
+      abaixo_umido: 73,
+      muitoAbaixo_umido: 70
+    };
+
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (umidadeSens2 >= limitesUmidade.muito_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1 umidade teste")
+    }
+    else if (umidadeSens2 < limitesUmidade.muito_umido && umidadeSens2 >= limitesUmidade.acima_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (umidadeSens2 < limitesUmidade.acima_umido && umidadeSens2 > limitesUmidade.abaixo_umido) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (umidadeSens2 <= limitesUmidade.abaixo_umido && umidadeSens2 > limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (umidadeSens2 <= limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+    
+      card_4text.innerHTML = texto2
+      
+      itemCardAlarm = card_4
+      divInfoAlarm = card_4text
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+
+  }
+
+
+  function obterDadosUmidadeSens3(idSensor3) {
+    fetch(`/medidas/tempo-realUmidade/${idSensor3 = 3}`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              umidadeSens3: resposta[0].umidade,
+            }
+
+            alertarUmiSens3(resposta[0].umidade, idSensor3);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertarUmiSens3(umidadeSens3, idSensor3) {
+
+    var limitesUmidade = {
+      muito_umido: 84,
+      acima_umido: 81,
+      // ideal: 24/26,
+      abaixo_umido: 73,
+      muitoAbaixo_umido: 70
+    };
+
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (umidadeSens3 >= limitesUmidade.muito_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 1 umidade teste")
+    }
+    else if (umidadeSens3 < limitesUmidade.muito_umido && umidadeSens3 >= limitesUmidade.acima_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 2")
+    }
+    else if (umidadeSens3 < limitesUmidade.acima_umido && umidadeSens3 > limitesUmidade.abaixo_umido) {
+      texto1 = "Normal"
+      texto2 = "Normal"
+      // realTemp.style.color="#2DB5B2"
+      classe_temperatura = 'itemCardAlarm normal';
+      classe_temperaturaText = 'divInfoAlarm normal'
+      console.log("caiu no 3")
+    }
+    else if (umidadeSens3 <= limitesUmidade.abaixo_umido && umidadeSens3 > limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Alerta"
+      texto2 = "Alerta"
+      // realTemp.style.color="#DBBA01"
+      classe_temperatura = 'itemCardAlarm alerta';
+      classe_temperaturaText = 'divInfoAlarm alerta'
+      console.log("caiu no 4")
+    }
+    else if (umidadeSens3 <= limitesUmidade.muitoAbaixo_umido) {
+      texto1 = "Critico"
+      texto2 = "Critico"
+      // realTemp.style.color="#F47780"
+      classe_temperatura = 'itemCardAlarm critico';
+      classe_temperaturaText = 'divInfoAlarm critico'
+      console.log("caiu no 5")
+    }
+
+    var itemCardAlarm;
+    var divInfoAlarm;
+
+    
+      card_6text.innerHTML = texto2
+      
+      itemCardAlarm = card_6
+      divInfoAlarm = card_6text
+
+    // alterando
+    itemCardAlarm.className = classe_temperatura;
+    divInfoAlarm.className = classe_temperaturaText;
+
+  }
+
+
+
+  function obterDadosUmidade(idSensor) {
+    fetch(`/medidas/tempo-realUmidade/${idSensor}`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              umidade: resposta[0].umidade,
+            }
+
+            alertar1(resposta[0].umidade, idSensor);
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function alertar1(umidade, idSensor) {
+
+    var limitesUmidade = {
+      muito_umido: 84,
+      acima_umido: 81,
+      // ideal: 24/26,
+      abaixo_umido: 73,
+      muitoAbaixo_umido: 70
+    };
+
+    var classe_temperaturaText = 'divInfoAlarm';
+    var classe_temperatura = 'itemCardAlarm';
+    var texto1 = ""
+    var texto2 = ""
+    // var
+    
+    if (umidade >= limitesUmidade.muito_umido) {
+      valorUmi.style.color="#F47780"
+      iconUmi.style.color ="#F47780"
+      console.log("caiu no 1 umidade teste")
+    }
+    else if (umidade < limitesUmidade.muito_umido && umidade >= limitesUmidade.acima_umido) {
+      valorUmi.style.color="#DBBA01"
+      iconUmi.style.color ="#DBBA01"
+      console.log("caiu no 2")
+    }
+    else if (umidade < limitesUmidade.acima_umido && umidade > limitesUmidade.abaixo_umido) {
+      
+      valorUmi.style.color="#2DB5B2"
+      iconUmi.style.color ="#2DB5B2"
+      
+      console.log("caiu no 3")
+    }
+    else if (umidade <= limitesUmidade.abaixo_umido && umidade > limitesUmidade.muitoAbaixo_umido) {
+     
+      valorUmi.style.color="#DBBA01"
+      iconUmi.style.color ="#DBBA01"
+      
+      console.log("caiu no 4")
+    }
+    else if (umidade <= limitesUmidade.muitoAbaixo_umido) {
+      valorUmi.style.color="#F47780"
+      iconUmi.style.color ="#F47780"
+      console.log("caiu no 5")
+    }
+
+    valorUmi.innerHTML = umidade +"%"
+
+  }
+
+  
+
+  // verificar_autenticacao();
+
+  // O gráfico é construído com três funções:
+  // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+  // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+  // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+  // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+  // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+  // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function obterDadosGrafico(idSensor) {
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
+    }
+
+    fetch(`/medidas/ultimasTemperatura/${idSensor}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+
+            plotarGrafico(resposta, idSensor);
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  function obterDadosGrafico2(idSensor) {
+    if (proximaAtualizacao2 != undefined) {
+      clearTimeout(proximaAtualizacao2);
+    }
+
+    fetch(`/medidas/ultimasUmidade/${idSensor}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+
+            plotarGrafico2(resposta, idSensor);
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+
+  function plotarGrafico(resposta, idSensor) {
+    console.log("iniciando plotagem do gráfico...");
+
+    var dados = {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: "y-temperatura",
+          label: "Temperatura",
+          borderColor: "#E0AA1E",
+          backgroundColor: "#E0AA1E",
+          fill: true,
+          data: [],
+        }
+      ],
+    };
+
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      dados.labels.push(registro.momento_grafico);
+
+      dados.datasets[0].data.push(registro.temperatura);
+    }
+
+    console.log(JSON.stringify(dados));
+
+    var ctx = myChartTemp.getContext("2d");
+    window.grafico_linha = Chart.Line(ctx, {
+      data: dados,
+      options: {
+        responsive: true,
+        animation: { duration: 500 },
+        hoverMode: "index",
+        stacked: false,
+        title: {
+          display: false,
+          text: "Dados capturados",
+        },
+        scales: {
+          yAxes: [
+            {
+              type: "linear",
+              display: true,
+              position: "left",
+              id: "y-temperatura",
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+                min: 0,
+              },
+            },
+            {
+              type: "linear",
+              display: false,
+              position: "right",
+              id: "y-umidade",
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+                min: 0,
+              },
+
+              gridLines: {
+                drawOnChartArea: false,
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
+  }
+
+  function plotarGrafico2(resposta, idSensor) {
+    console.log("iniciando plotagem do gráfico...");
+
+    var dados1 = {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: "y-umidade",
+          label: "Umidade",
+          borderColor: "#1EC9E0",
+          backgroundColor: "#1EC9E0",
+          fill: true,
+          data: [],
+        }
+      ],
+    };
+
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      dados1.labels.push(registro.momento_grafico);
+      dados1.datasets[0].data.push(registro.umidade);
+    }
+
+    console.log(JSON.stringify(dados1));
+
+    var ctx = myChartUmidade.getContext("2d");
+    window.grafico_linha1 = Chart.Line(ctx, {
+      data: dados1,
+      options: {
+        responsive: true,
+        animation: { duration: 500 },
+        hoverMode: "index",
+        stacked: false,
+        title: {
+          display: false,
+          text: "Dados capturados",
+        },
+        scales: {
+          yAxes: [
+            {
+              type: "linear",
+              display: true,
+              position: "left",
+              id: "y-temperatura",
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+                min: 0,
+              },
+            },
+            {
+              type: "linear",
+              display: false,
+              position: "right",
+              id: "y-umidade",
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+                min: 0,
+              },
+
+              gridLines: {
+                drawOnChartArea: false,
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    setTimeout(() => atualizarGrafico2(idSensor, dados1), 2001);
+  }
+
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas,
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function atualizarGrafico(idSensor, dados) {
+    fetch(`/medidas/tempo-realTemperatura/${idSensor}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (novoRegistro) {
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico: ${dados}`);
+
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+            dados.datasets[0].data.shift(); // apagar o primeiro de temperatura
+            dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+            window.grafico_linha.update();
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(
+              () => atualizarGrafico(idSensor, dados),
+              2000
+            );
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(
+            () => atualizarGrafico(idSensor, dados),
+            2000
+          );
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  function atualizarGrafico2(idSensor, dados) {
+    fetch(`/medidas/tempo-realUmidade/${idSensor}`, { cache: "no-store" })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (novoRegistro) {
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico: ${dados}`);
+
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+            dados.datasets[0].data.shift(); // apagar o primeiro de umidade
+            dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+            window.grafico_linha1.update();
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao2 = setTimeout(
+              () => atualizarGrafico2(idSensor, dados),
+              2000
+            );
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao2 = setTimeout(
+            () => atualizarGrafico2(idSensor, dados),
+            2000
+          );
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  
+
+
+</script>

@@ -1,0 +1,157 @@
+body {
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    font-family: 'Rajdhani', 'Manrope', sans-serif;
+  }
+
+  #fundo {
+    background-color: white;
+    position: absolute;
+    width: 97.8vw;
+    height: 97.8vh;
+    z-index: -2;
+    
+}
+
+.divBlur{
+    position: absolute;
+    width: 60vw;
+    height: 140vh; 
+    left: 0;
+    top:-10%;
+    border-radius: 0 0 1000px ; 
+    background-color: #cb8c17;
+    opacity:30%; 
+    filter:blur(4px);
+    -o-filter:blur(15px);
+    -ms-filter:blur(15px);
+    -moz-filter:blur(15px);
+    -webkit-filter:blur(15px);  
+    z-index: -1;
+}
+
+.div_1{
+    color:#8B601F; 
+    text-align: center;
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+.div_input{
+    align-items: center;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    
+
+}
+
+.botoes{
+    display: flex;
+    justify-content: center;
+    margin-top: -500px;
+    z-index: 0;
+    
+    
+}
+
+
+.botao1{
+    font-size: 26px;
+    font-weight: 600;
+    background-color: transparent;
+    border: 2px #8B601F  solid;
+    border-radius: 10px;
+    margin-top: 40%;
+    transition: 500ms;
+    color: #8B601F;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.botao1:hover{
+    color: white;
+    background-color: #8B601F ;
+    border: 2px #8B601F  solid;
+    
+}
+.botao2{
+    font-size: 26px;
+    font-weight: 600;
+    background-color: transparent;
+    border: 2px #8B601F  solid;
+    border-radius: 10px;
+    margin-top: 40%;
+    transition: 500ms;
+    color: #8B601F;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.botao2:hover{
+    color: white;
+    background-color: #8B601F ;
+    border: 2px #8B601F  solid;
+}
+
+.div2{
+    color: #252525;
+    font-size:x-large; 
+    height: 20%; 
+    margin-left: 28;
+}
+ 
+.result{
+    margin: 0 auto;
+    color: black;
+    font-weight: 900;
+}
+#div1{
+    color: black;
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+.input1{
+    background-color: transparent;
+    border-radius: 6px;
+    width: 200px;
+    height: 30px;
+    outline: 0;
+    border: #8B601F 3px solid;
+}
+
+.input2{
+    background-color: transparent;
+    border-radius: 6px;
+    width: 200px;
+    height: 30px;
+    outline: 0;
+    border: #8B601F 3px solid;
+
+}
+ .input3{
+    background-color: transparent;
+    border-radius: 6px;
+    width: 200px;
+    height: 30px;
+    outline: 0;
+    border: #8B601F 3px solid;
+ }
+
+ .divReturn{
+     width: 7%;
+     margin-top: 3%;
+     margin-left: 8%;
+     height: 5%;
+     cursor: pointer;
+     position: absolute;
+     color: #8B601F;
+     font-size: 2rem;
+ }
+
+ 
