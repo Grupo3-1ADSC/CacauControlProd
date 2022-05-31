@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'CacauControl'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E40613218E574FC68E05F07A5CB59D08 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C2087C81145B4EF3A0C1D36FE0C6A19E }}
           package: .
